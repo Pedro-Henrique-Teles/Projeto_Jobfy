@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "DB_EMPRESA")
@@ -17,6 +18,10 @@ public class Empresa {
     @NotBlank(message = "O Nome não pode estar em branco")
     @Size(min = 3, message = "O Nome do usuario deve possuir ao menos 3 caracteres")
     private String name;
+
+
+    @OneToMany(mappedBy = "empresa")
+    private List<Colaborador> colaboradores;
 
 
 

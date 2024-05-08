@@ -3,7 +3,6 @@ package com.jobfy.models.entity;
 import com.jobfy.validator.ValidCPF;
 import com.jobfy.validator.ValidPassword;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -56,6 +55,9 @@ public class Colaborador {
     @Column(unique = true)
     @ValidCPF(message = "O CPF do colaborador deve ser um CPF válido")
     private String cpf;
+
+    @ManyToOne
+    private Empresa empresa;
 
     public long getId() {
         return id;
