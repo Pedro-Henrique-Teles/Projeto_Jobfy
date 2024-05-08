@@ -19,6 +19,7 @@ public class Colaborador {
     private String name;
 
 
+    @Column(unique = true)
     @NotBlank(message = "O Telefone do colaborador não pode estar em branco")
     @NotNull(message = "O Telefone não pode ser nulo")
     private String telefone;
@@ -31,13 +32,13 @@ public class Colaborador {
 
     @NotBlank(message = "A Escolaridade do colaborador não pode estar em branco")
     @NotNull(message = "O campo escolaridade não pode ser nulo")
-    private double escolaridade;
+    private String escolaridade;
 
 
     @NotNull(message = "O Email não pode ser nulo")
     @Email(message = "O email do colaborador deve ser válido")
     @Column(unique = true)
-    private double email;
+    private String email;
 
     @NotNull(message = "A senha não pode ser nula")
     @ValidPassword
@@ -99,19 +100,19 @@ public class Colaborador {
         this.salario = salario;
     }
 
-    public double getEscolaridade() {
+    public String getEscolaridade() {
         return escolaridade;
     }
 
-    public void setEscolaridade(double escolaridade) {
+    public void setEscolaridade(String escolaridade) {
         this.escolaridade = escolaridade;
     }
 
-    public double getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(double email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

@@ -30,6 +30,10 @@ public class Empresa {
     @Column(unique = true)
     private String email;
 
+    @NotNull(message = "O Campo Setor de Atividade não pode ser nulo")
+    @NotBlank(message = "O Campo Setor de Atividade não pode estar em branco")
+    private String setorAtividade;
+
     @Min(0)
     @Max(1000)
     private int vagas;
@@ -72,6 +76,14 @@ public class Empresa {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSetorAtividade() {
+        return setorAtividade;
+    }
+
+    public void setSetorAtividade(String setorAtividade) {
+        this.setorAtividade = setorAtividade;
     }
 
     public int getVagas() {
