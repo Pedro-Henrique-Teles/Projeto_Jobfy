@@ -18,83 +18,126 @@ public class ColaboradorService {
     public ColaboradorService(ColaboradorRepository colaboradorRepository){
         this.colaboradorRepository = colaboradorRepository;
     }
-    /*--------------------------Método FindAll|--------------------------*/
     public List<Colaborador> findAll(){
         return colaboradorRepository.findAll();
     }
-//    --------------------------------------------------------------------
 
-    /*--------------------------Método FindAll|--------------------------*/
     public Colaborador findById(Integer id) throws Exception{
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
-        if (!colaborador.isPresent()){
+        if (colaborador.isEmpty()){
             throw new Exception("Colaborador não encontrado");
         }
         return colaborador.get();
     }
-    //------------------------------------------------------------------------
 
-    /*-----------------------------Método Post-----------------------------*/
+
     public Colaborador save(Colaborador colaborador) throws Exception{
-        if (colaborador.getName() == null || colaborador.getName().length()<3){
+        validateName(colaborador.getName());
+        validateTelefone(colaborador.getTelefone(), colaborador.getId());
+        validateEmail(colaborador.getEmail(), colaborador.getId());
+        validateDataNascimento(colaborador.getDataNascimento());
+        validateSenha(colaborador.getSenha());
+        validateAreaInteresse(colaborador.getAreaInteresse());
+        validateCpf(colaborador.getCpf(), colaborador.getId());
+        validateEscolaridade(colaborador.getEscolaridade());
+
+        return colaboradorRepository.save(colaborador);
+    }
+
+    private void validateName(String name) throws Exception {
+        if (name == null || name.length() < 3) {
             throw new Exception("O nome do colaborador deve ter ao menos 3 caracteres");
         }
-        if (colaborador.getTelefone() == null || colaborador.getTelefone().length()<11){
-            throw new Exception("O telefone do colaborador deve ter ao menos 11 dígitos contando seu (DDD)");
+    }
+
+    private void validateCpf(String cpf, long id) throws Exception {
+        if (!CpfValidator.isValid(cpf)) {
+            throw new Exception("CPF invalido");
         }
-        if (colaboradorRepository.findByTelefone(colaborador.getTelefone()) != null){
+        Colaborador colaboradorExistenteCpf = colaboradorRepository.findByCpf(cpf);
+        if (colaboradorExistenteCpf != null && colaboradorExistenteCpf.getId() != id) {
+            throw new Exception("Este CPF já existe");
+        }
+    }
+
+    private void validateTelefone(String telefone, Long id) throws Exception {
+        Colaborador colaboradorExistenteTelefone = colaboradorRepository.findByTelefone(telefone);
+        if (colaboradorExistenteTelefone != null && colaboradorExistenteTelefone.getId() != id) {
             throw new Exception("Este Telefone já existe");
         }
-        if (colaborador.getEscolaridade() == null) {
-            throw new Exception("A escolaridade não pode ser nula");
+    }
+
+    private void validateEscolaridade(String escolaridade ) throws Exception {
+        if(escolaridade == null || escolaridade.trim().isEmpty()){
+            throw new Exception("A escolaridade não pode ser vazia");
         }
-        java.util.Date dataNascimentoDate = colaborador.getDataNascimento();
+    }
+
+
+    private void validateEmail(String email, Long id) throws Exception {
+        if (email == null || !email.contains("@")) {
+            throw new Exception("O email deve ser válido");
+        }
+
+        Colaborador colaboradorExistenteEmail = colaboradorRepository.findByEmail(email);
+        if (colaboradorExistenteEmail != null && colaboradorExistenteEmail.getId() != id) {
+            throw new Exception("Este Email já existe");
+        }
+    }
+
+    private void validateSenha(String senha) throws Exception {
+        if (senha == null || senha.length() < 6 || !senha.matches(".*[A-Z].*") || !senha.matches(".*\\W.*")) {
+            throw new Exception("A senha deve ter ao menos 6 caracteres e apresentar ao menos uma letra maiúscula" +
+                    " e um caractere especial");
+        }
+    }
+
+    private void validateAreaInteresse(String areaInteresse) throws Exception {
+        if (areaInteresse == null) {
+            throw new Exception("Qual área lhe interessa ?");
+        }
+    }
+    private void validateDataNascimento(java.util.Date dataNascimentoDate) throws Exception {
         if (dataNascimentoDate == null) {
             throw new Exception("A data de nascimento não pode ser nula");
         }
+
         LocalDate dataNascimento = dataNascimentoDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (dataNascimento.isAfter(LocalDate.now()) || Period.between(dataNascimento, LocalDate.now()).getYears() < 16) {
             throw new Exception("A data deve ser no passado, e a idade deve ser igual ou maior que 16 anos");
         }
-        String senha = colaborador.getSenha();
-        if (senha == null || senha.length() < 6 || !senha.matches(".*[A-Z].*") || !senha.matches(".*\\W.*")){
-            throw new Exception("A senha deve ter ao menos 6 caracteres e apresentar ao menos uma letra maiúscula" +
-                    " e um caractere especial");
-        }
-        if (colaborador.getAreaInteresse() == null){
-            throw new Exception("Você deve possui um interesse");
-        }
-        if (colaborador.getAreaInteresse() == null){
-            throw new Exception("Qual área lhe interessa ?");
-        }
-        if (!CpfValidator.isValid(colaborador.getCpf())){
-            throw new Exception("CPF invalido");
-        }
-
-
-
-        return colaboradorRepository.save(colaborador);
     }
-//-----------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
-
-
-    /*-----------------------------Método Delete-----------------------------*/
     public Colaborador delete(Integer id) throws Exception{
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
-        if (!colaborador.isPresent()){
+        if (colaborador.isEmpty()){
             throw new Exception("Aluno não encontrado");
         }
         colaboradorRepository.delete(colaborador.get());
         return colaborador.get();
     }
-//-----------------------------------------------------------------------------------------------------------------------
 
+    public long cont() {
+        return colaboradorRepository.count();
+    }
+
+
+
+
+    public Colaborador create(Colaborador colaborador) throws Exception{
+        if (colaborador.getEscolaridade() == null) {
+            throw new Exception("A escolaridade não pode ser nula");
+        }
+        if (colaboradorRepository.findByTelefone(colaborador.getTelefone()) != null){
+            throw new Exception("Este Telefone já existe");
+        }
+        return save(colaborador);
+    }
 
 }
 

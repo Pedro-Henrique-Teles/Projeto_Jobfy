@@ -23,6 +23,7 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Intege
     List<Colaborador> findBySalario(Double salario);
     List<Colaborador> findByEscolaridade(String escolaridade);
     List<Colaborador> findByAreaInteresse(String areaInteresse);
+    Colaborador findByEmail(String email);
 
 
 }
