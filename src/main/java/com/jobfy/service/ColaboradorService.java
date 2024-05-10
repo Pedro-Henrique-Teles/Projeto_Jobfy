@@ -28,7 +28,7 @@ public class ColaboradorService {
         if (colaborador.getName() == null || colaborador.getName().length()<3){
             throw new Exception("O nome do colaborador deve ter ao menos 3 caracteres");
         }
-        return colaborador; 
+        return colaboradorRepository.save(colaborador);
     }
 
 
