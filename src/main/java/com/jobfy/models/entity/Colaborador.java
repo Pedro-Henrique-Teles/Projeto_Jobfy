@@ -1,7 +1,5 @@
 package com.jobfy.models.entity;
 
-import com.jobfy.validator.ValidCPF;
-import com.jobfy.validator.ValidPassword;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.*;
@@ -41,7 +39,6 @@ public class Colaborador {
     private String email;
 
     @NotNull(message = "A senha não pode ser nula")
-    @ValidPassword
     private String senha;
 
     @NotBlank(message = "A Área de Interesse  não pode estar em branco")
@@ -54,7 +51,6 @@ public class Colaborador {
 
     @NotNull(message = "O CPF não pode ser nulo")
     @Column(unique = true)
-    @ValidCPF(message = "O CPF do colaborador deve ser um CPF válido")
     private String cpf;
 
     @ManyToOne

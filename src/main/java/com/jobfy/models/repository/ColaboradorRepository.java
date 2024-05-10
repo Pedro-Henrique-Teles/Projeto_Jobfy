@@ -2,10 +2,16 @@ package com.jobfy.models.repository;
 
 import com.jobfy.models.entity.Colaborador;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface    ColaboradorRepository extends JpaRepository<Colaborador, Integer> {
+@Repository
+public interface ColaboradorRepository extends JpaRepository<Colaborador, Integer> {
+
+    boolean existsByCpf(String cpf);
+
+
     List<Colaborador> findByName(String nome);
 
     Colaborador findByCpf(String cpf);
@@ -17,5 +23,6 @@ public interface    ColaboradorRepository extends JpaRepository<Colaborador, Int
     List<Colaborador> findBySalario(Double salario);
     List<Colaborador> findByEscolaridade(String escolaridade);
     List<Colaborador> findByAreaInteresse(String areaInteresse);
+
 
 }
