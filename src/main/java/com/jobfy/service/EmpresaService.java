@@ -67,4 +67,27 @@ public class EmpresaService {
 
     }
 
+    public Empresa delete(Integer id) throws Exception {
+        Optional<Empresa> empresa = empresaRepository.findById(id);
+        if (empresa.isEmpty()){
+            throw new Exception("Empresa não encontrada");
+        }
+        empresaRepository.delete(empresa.get());
+        return empresa.get();
+    }
+
+
+    public long cont() {
+        return empresaRepository.count();
+    }
+
+
+    public Empresa create(Empresa empresa) throws Exception{
+        if (empresa.getSetorAtividade() == null) {
+            throw new Exception("A Area de Interesse não pode ser nula");
+        }
+        return save(empresa);
+    }
+
+
 }
