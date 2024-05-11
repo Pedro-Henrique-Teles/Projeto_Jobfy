@@ -122,6 +122,8 @@ public class ColaboradorService {
         return colaborador.get();
     }
 
+
+
     public long cont() {
         return colaboradorRepository.count();
     }
