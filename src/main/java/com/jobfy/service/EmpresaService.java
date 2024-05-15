@@ -33,6 +33,7 @@ public class EmpresaService {
         validateCnpj(empresa.getCnpj(), empresa.getId());
         validateSetorAtividade(empresa.getSetorAtividade());
         validateEmail(empresa.getEmail(), empresa.getId());
+        validateVagas(empresa.getVagas());
         return empresaRepository.save(empresa);
     }
 
@@ -65,6 +66,11 @@ public class EmpresaService {
             throw new Exception("Este Email já existe");
         }
 
+    }
+    private void validateVagas(double vagas) throws Exception {
+        if (vagas < 1000.0){
+            throw new Exception("O número de vagas deve ser menor que mil");
+        }
     }
 
     public Empresa delete(Integer id) throws Exception {

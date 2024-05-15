@@ -54,6 +54,7 @@ public class Colaborador {
     private String cpf;
 
     @ManyToOne
+    @JoinColumn(name="empresa_id", nullable=true)
     private Empresa empresa;
 
     public long getId() {
@@ -142,5 +143,13 @@ public class Colaborador {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

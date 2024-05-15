@@ -1,5 +1,6 @@
 package com.jobfy.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -13,6 +14,7 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToMany(mappedBy = "empresa")
+    @JsonIgnore
     private List<Colaborador> colaboradores;
 
     @NotNull(message = "O Nome não pode ser nulo")
