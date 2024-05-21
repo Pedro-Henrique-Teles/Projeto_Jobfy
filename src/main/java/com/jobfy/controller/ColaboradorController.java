@@ -76,6 +76,7 @@ public class ColaboradorController {
 
 
 
+
     @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id")Integer id){
         try {

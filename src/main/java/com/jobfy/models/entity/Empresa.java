@@ -1,6 +1,8 @@
 package com.jobfy.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -9,6 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "DB_EMPRESA")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

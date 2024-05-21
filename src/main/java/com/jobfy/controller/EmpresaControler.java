@@ -44,12 +44,14 @@ public class EmpresaControler {
             if (!empresa.isPresent()){
                 return ResponseEntity.notFound().build();
             }
-            BeanUtils.copyProperties(empresaAtualizada, empresa.get());
+            BeanUtils.copyProperties(empresaAtualizada, empresa.get(), "id");
             return ResponseEntity.ok(empresaService.save(empresa.get()));
-        }catch (Exception e) {
+        }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
 
 
 
