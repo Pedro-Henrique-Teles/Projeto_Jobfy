@@ -24,7 +24,15 @@ public class EmpresaControler {
         return ResponseEntity.ok(empresaService.findAll());
     }
 
-
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable Integer id) {
+        try {
+            Empresa empresa = empresaService.findById(id);
+            return ResponseEntity.ok(empresa);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping()
     public ResponseEntity save(@RequestBody Empresa empresa) {

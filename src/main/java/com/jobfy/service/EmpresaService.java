@@ -22,7 +22,7 @@ public class EmpresaService {
     public Empresa findById(Integer id) throws Exception {
         Optional<Empresa> empresa = empresaRepository.findById(id);
         if (empresa.isEmpty()){
-            throw new Exception("Empresa não encontrada");
+            throw new Exception("Empresa com ID " + id + " não encontrada.");
         }
         return empresa.get();
     }

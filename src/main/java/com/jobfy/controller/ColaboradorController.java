@@ -19,17 +19,20 @@ public class ColaboradorController {
 
 
 
-
-
     @GetMapping()
     public ResponseEntity findAll() {
         return ResponseEntity.ok(colaboradorService.findAll());
     }
 
-
-
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity findById(@PathVariable Integer id) {
+        try {
+            Colaborador colaborador = colaboradorService.findById(id);
+            return ResponseEntity.ok(colaborador);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
 
     @PostMapping("{id}")
@@ -41,8 +44,6 @@ public class ColaboradorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 
 
 
@@ -71,8 +72,6 @@ public class ColaboradorController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 
 
 

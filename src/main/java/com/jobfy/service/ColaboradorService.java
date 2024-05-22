@@ -25,7 +25,7 @@ public class ColaboradorService {
     public Colaborador findById(Integer id) throws Exception{
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
         if (colaborador.isEmpty()){
-            throw new Exception("Colaborador não encontrado");
+            throw new Exception("Colaborador com ID " + id + " não encontrado.");
         }
         return colaborador.get();
     }
@@ -116,7 +116,7 @@ public class ColaboradorService {
     public Colaborador delete(Integer id) throws Exception{
         Optional<Colaborador> colaborador = colaboradorRepository.findById(id);
         if (colaborador.isEmpty()){
-            throw new Exception("Aluno não encontrado");
+            throw new Exception("Colaborador não encontrado");
         }
         colaboradorRepository.delete(colaborador.get());
         return colaborador.get();
