@@ -10,7 +10,7 @@ import java.util.Date;
 public class Colaborador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long id;    
     @NotBlank(message = "O Nome do colaborador não pode estar em branco")
     @NotNull(message = "O Nome do colaborador não pode ser nulo")
     @Size(min = 3, message = "O nome do usuario deve possuir ao menos 3 caracteres")

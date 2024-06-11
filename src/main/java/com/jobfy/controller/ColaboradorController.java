@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/colaborador")
 public class ColaboradorController {
@@ -35,22 +34,10 @@ public class ColaboradorController {
     }
 
 
-    @PostMapping("{id}")
+    @PostMapping()
     public ResponseEntity create(@RequestBody Colaborador colaborador) {
         try {
             Colaborador savedColaborador = colaboradorService.create(colaborador);
-            return ResponseEntity.ok(savedColaborador);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-
-
-    @PostMapping()
-    public ResponseEntity save(@RequestBody Colaborador colaborador) {
-        try {
-            Colaborador savedColaborador = colaboradorService.save(colaborador);
             return ResponseEntity.ok(savedColaborador);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

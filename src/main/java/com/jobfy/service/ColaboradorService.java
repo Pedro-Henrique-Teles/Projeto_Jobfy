@@ -67,6 +67,7 @@ public class ColaboradorService {
         }
     }
 
+
     private void validateEscolaridade(String escolaridade ) throws Exception {
         if(escolaridade == null || escolaridade.trim().isEmpty()){
             throw new Exception("A escolaridade não pode ser vazia");

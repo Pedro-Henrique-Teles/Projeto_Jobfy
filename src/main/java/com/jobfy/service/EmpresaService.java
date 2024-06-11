@@ -68,7 +68,7 @@ public class EmpresaService {
 
     }
     private void validateVagas(double vagas) throws Exception {
-        if (vagas < 1000.0){
+        if (vagas > 1000.0){
             throw new Exception("O número de vagas deve ser menor que mil");
         }
     }
