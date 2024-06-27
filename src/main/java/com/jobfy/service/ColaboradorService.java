@@ -94,7 +94,7 @@ public class ColaboradorService {
     }
 
     private void validateAreaInteresse(String areaInteresse) throws Exception {
-        if (areaInteresse == null) {
+        if (areaInteresse == null || areaInteresse.trim().isEmpty()) {
             throw new Exception("Qual área lhe interessa ?");
         }
     }
